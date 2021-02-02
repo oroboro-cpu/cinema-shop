@@ -4,7 +4,7 @@ import cinema.project.model.CinemaHall;
 import java.util.List;
 
 public interface CinemaHallDao {
-    public CinemaHall add(CinemaHall cinemaHall);
+    CinemaHall add(CinemaHall cinemaHall);
 
-    public List<CinemaHall> getAll();
+    List<CinemaHall> getAll();
 }
