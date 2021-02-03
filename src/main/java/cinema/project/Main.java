@@ -1,5 +1,6 @@
 package cinema.project;
 
+import cinema.project.exception.AuthenticationException;
 import cinema.project.lib.Injector;
 import cinema.project.model.CinemaHall;
 import cinema.project.model.Movie;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 public class Main {
     private static final Injector injector = Injector.getInstance("cinema.project");
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AuthenticationException {
         Movie movie1 = new Movie();
         movie1.setTitle("Fast and Furious");
         movie1.setDescription("Good movie");
