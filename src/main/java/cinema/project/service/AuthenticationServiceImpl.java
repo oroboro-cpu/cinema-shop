@@ -20,7 +20,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (user.isPresent()) {
             String hashPassword = HashUtil.hashPassword(password, user.get().getSalt());
             if (user.get().getPassword().equals(hashPassword)) {
-                shoppingCartService.registerNewShoppingCart(user.get());
                 return user.get();
             }
         }
@@ -32,6 +31,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
+        shoppingCartService.registerNewShoppingCart(user);
         return userService.add(user);
     }
 }
