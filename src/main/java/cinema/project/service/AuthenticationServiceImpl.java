@@ -10,6 +10,8 @@ import java.util.Optional;
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
     @Inject
+    private ShoppingCartService shoppingCartService;
+    @Inject
     private UserService userService;
 
     @Override
@@ -29,6 +31,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
-        return userService.add(user);
+        userService.add(user);
+        shoppingCartService.registerNewShoppingCart(user);
+        return user;
     }
 }
