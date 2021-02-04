@@ -10,6 +10,8 @@ import java.util.Optional;
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
     @Inject
+    private ShoppingCartService shoppingCartService;
+    @Inject
     private UserService userService;
 
     @Override
@@ -18,6 +20,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (user.isPresent()) {
             String hashPassword = HashUtil.hashPassword(password, user.get().getSalt());
             if (user.get().getPassword().equals(hashPassword)) {
+                shoppingCartService.registerNewShoppingCart(user.get());
                 return user.get();
             }
         }
