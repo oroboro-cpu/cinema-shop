@@ -47,7 +47,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
             query.setParameter("user", user);
             return query.getSingleResult();
         } catch (Exception ex) {
-            throw new DataProcessingException("Can't get shopping by user: "
+            throw new DataProcessingException("Can't get shopping cart by user: "
                     + user + " from DB", ex);
         }
     }
