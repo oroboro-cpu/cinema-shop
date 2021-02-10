@@ -5,13 +5,16 @@ import cinema.project.lib.Injector;
 import cinema.project.model.CinemaHall;
 import cinema.project.model.Movie;
 import cinema.project.model.MovieSession;
+import cinema.project.model.Order;
 import cinema.project.model.User;
 import cinema.project.service.AuthenticationService;
 import cinema.project.service.CinemaHallService;
 import cinema.project.service.MovieService;
 import cinema.project.service.MovieSessionService;
+import cinema.project.service.OrderService;
 import cinema.project.service.ShoppingCartService;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Main {
     private static final Injector injector = Injector.getInstance("cinema.project");
@@ -58,15 +61,28 @@ public class Main {
         User user1 = authenticationService.register(email1, password1);
         String email2 = "email02@gmail.com";
         String password2 = "java02";
-        User user2 = authenticationService.register(email2, password2);
         System.out.println(authenticationService.login(email1, password1));
+        User user2 = authenticationService.register(email2, password2);
         System.out.println(authenticationService.login(email2, password2));
 
         ShoppingCartService shoppingCartService =
                 (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
         shoppingCartService.addSession(movieSession, user1);
+        shoppingCartService.addSession(movieSession, user2);
         System.out.println(shoppingCartService.getByUser(user1));
+        System.out.println(shoppingCartService.getByUser(user2));
         shoppingCartService.clear(shoppingCartService.getByUser(user1));
         System.out.println(shoppingCartService.getByUser(user1));
+
+        OrderService orderService = (OrderService)
+                injector.getInstance(OrderService.class);
+        Order order1 = orderService.completeOrder(shoppingCartService.getByUser(user1));
+        System.out.println(order1);
+        Order order2 = orderService.completeOrder(shoppingCartService.getByUser(user2));
+        System.out.println(order2);
+        List<Order> ordersHistory1 = orderService.getOrdersHistory(user1);
+        ordersHistory1.forEach(System.out::println);
+        List<Order> ordersHistory2 = orderService.getOrdersHistory(user2);
+        ordersHistory2.forEach(System.out::println);
     }
 }
