@@ -1,16 +1,20 @@
 package cinema.project.service;
 
 import cinema.project.dao.UserDao;
-import cinema.project.lib.Inject;
-import cinema.project.lib.Service;
 import cinema.project.model.User;
 import cinema.project.util.HashUtil;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Inject
-    private UserDao userDao;
+    private final UserDao userDao;
+
+    @Autowired
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @Override
     public User add(User user) {
