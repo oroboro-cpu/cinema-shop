@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MovieSessionMapper implements Mapper<MovieSession,
         MovieSessionResponseDto, MovieSessionRequestDto> {
+    private static final String DATE_PATTERN = "dd.MM.yyyy HH:mm";
     private final MovieService movieService;
     private final CinemaHallService cinemaHallService;
 
@@ -29,7 +30,7 @@ public class MovieSessionMapper implements Mapper<MovieSession,
         movieSessionResponseDto.setMovieId(movieSession.getMovie().getId());
         movieSessionResponseDto.setCinemaHallId(movieSession.getCinemaHall().getId());
         movieSessionResponseDto.setShowTime(movieSession.getShowTime()
-                .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")));
+                .format(DateTimeFormatter.ofPattern(DATE_PATTERN)));
         return movieSessionResponseDto;
     }
 
@@ -40,7 +41,7 @@ public class MovieSessionMapper implements Mapper<MovieSession,
         movieSession.setCinemaHall(cinemaHallService.get(movieSessionRequestDto
                 .getCinemaHallId()));
         movieSession.setShowTime(LocalDateTime.parse(movieSessionRequestDto.getShowTime(),
-                DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")));
+                DateTimeFormatter.ofPattern(DATE_PATTERN)));
         return movieSession;
     }
 }

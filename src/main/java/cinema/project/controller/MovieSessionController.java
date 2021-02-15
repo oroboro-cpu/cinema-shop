@@ -53,6 +53,7 @@ public class MovieSessionController {
     public void update(@PathVariable Long id,
                        @RequestBody MovieSessionRequestDto movieSessionRequestDto) {
         MovieSession movieSession = movieSessionMapper.toEntity(movieSessionRequestDto);
+        movieSession.setId(id);
         movieSessionService.update(movieSession);
     }
 

@@ -90,7 +90,8 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            session.delete(get(id));
+            MovieSession movieSession = session.get(MovieSession.class, id);
+            session.delete(movieSession);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
