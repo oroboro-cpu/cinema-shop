@@ -62,7 +62,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
     }
 
     @Override
-    public MovieSession update(MovieSession movieSession) {
+    public void update(MovieSession movieSession) {
         Session session = null;
         Transaction transaction = null;
         try {
@@ -70,7 +70,6 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             transaction = session.beginTransaction();
             session.update(movieSession);
             transaction.commit();
-            return movieSession;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -85,21 +84,20 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
     }
 
     @Override
-    public boolean remove(MovieSession movieSession) {
+    public void remove(Long id) {
         Session session = null;
         Transaction transaction = null;
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            session.delete(movieSession);
+            session.delete(get(id));
             transaction.commit();
-            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Can't remove movie session: "
-                    + movieSession, e);
+            throw new DataProcessingException("Can't remove movie session by id: "
+                    + id, e);
         } finally {
             if (session != null) {
                 session.close();
