@@ -57,7 +57,7 @@ public class UserDaoImpl implements UserDao {
         try (Session session = sessionFactory.openSession()) {
             return Optional.ofNullable(session.get(User.class, id));
         } catch (Exception e) {
-            throw new DataProcessingException("Can't find user bi id: " + id, e);
+            throw new DataProcessingException("Can't find user by id: " + id, e);
         }
     }
 }
