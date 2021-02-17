@@ -13,13 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 public class AuthenticationController {
     private final AuthenticationService service;
-    private final UserMapper userMapper;
 
     @Autowired
-    public AuthenticationController(AuthenticationService service,
-                                    UserMapper userMapper) {
+    public AuthenticationController(AuthenticationService service) {
         this.service = service;
-        this.userMapper = userMapper;
     }
 
     @PostMapping("/register")
