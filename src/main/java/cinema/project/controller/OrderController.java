@@ -37,7 +37,7 @@ public class OrderController {
     public List<OrderResponseDto> getHistory(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User user = userService.findByEmail(userDetails.getUsername()).get();
-        return orderService.getOrdersHistory(userService.get(user.getId())).stream()
+        return orderService.getOrdersHistory(user).stream()
                 .map(orderMapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -46,7 +46,6 @@ public class OrderController {
     public void completeOrder(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User user = userService.findByEmail(userDetails.getUsername()).get();
-        orderMapper.toDto(orderService.completeOrder(shoppingCartService
-                .getByUser(userService.get(user.getId()))));
+        orderService.completeOrder(shoppingCartService.getByUser(user));
     }
 }

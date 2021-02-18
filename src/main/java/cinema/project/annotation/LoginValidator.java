@@ -6,7 +6,7 @@ import javax.validation.ConstraintValidatorContext;
 public class LoginValidator implements
         ConstraintValidator<LoginConstraint, String> {
     @Override
-    public boolean isValid(String contactField, ConstraintValidatorContext validatorContext) {
-        return contactField != null && (contactField.length() > 8) && (contactField.length() < 14);
+    public boolean isValid(String login, ConstraintValidatorContext validatorContext) {
+        return login != null && (login.length() > 8) && (login.length() < 14);
     }
 }
