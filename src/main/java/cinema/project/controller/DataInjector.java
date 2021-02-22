@@ -5,19 +5,19 @@ import cinema.project.model.RoleType;
 import cinema.project.model.User;
 import cinema.project.service.RoleService;
 import cinema.project.service.UserService;
-import java.util.List;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DataInjectionController {
+public class DataInjector {
     private final RoleService roleService;
     private final UserService userService;
 
     @Autowired
-    public DataInjectionController(RoleService roleService,
-                      UserService userService) {
+    public DataInjector(RoleService roleService,
+                        UserService userService) {
         this.roleService = roleService;
         this.userService = userService;
     }
@@ -33,7 +33,7 @@ public class DataInjectionController {
         User userAdmin = new User();
         userAdmin.setEmail("yaroslav@gmail.com");
         userAdmin.setPassword("12345");
-        userAdmin.setRoles(List.of(roleAdmin));
+        userAdmin.setRoles(Set.of(roleAdmin));
         userService.add(userAdmin);
     }
 }

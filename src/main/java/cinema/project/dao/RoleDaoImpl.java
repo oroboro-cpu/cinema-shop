@@ -3,6 +3,7 @@ package cinema.project.dao;
 import cinema.project.exception.DataProcessingException;
 import cinema.project.model.Role;
 import cinema.project.model.RoleType;
+import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -40,12 +41,12 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public Role getRoleByName(RoleType roleType) {
+    public Optional<Role> getRoleByName(RoleType roleType) {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("SELECT r FROM Role r "
+            return Optional.ofNullable(session.createQuery("SELECT r FROM Role r "
                     + "WHERE r.roleType = :roleType", Role.class)
                     .setParameter("roleType", roleType)
-                    .getSingleResult();
+                    .getSingleResult());
         } catch (Exception e) {
             throw new DataProcessingException("Can't get role by type: " + roleType, e);
         }
