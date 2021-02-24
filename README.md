@@ -61,10 +61,10 @@ To start the project you need:
 2. Download and install servlet container (for example Apache Tomcat)
 3. Download and install MySQL Server
 4. Setup new connection with
-   
+
    ● user: "your username"
-   
+
    ● password: "your password"
-   
+
    ● url: jdbc:mysql://"your host name":"your port"/"your name db"?useUnicode=true&serverTimezone=UTC
 5. Run a project
