@@ -8,18 +8,21 @@ import cinema.project.service.UserService;
 import java.util.Set;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DataInjector {
     private final RoleService roleService;
     private final UserService userService;
+    private final Environment environment;
 
     @Autowired
     public DataInjector(RoleService roleService,
-                        UserService userService) {
+                        UserService userService, Environment environment) {
         this.roleService = roleService;
         this.userService = userService;
+        this.environment = environment;
     }
 
     @PostConstruct
@@ -31,8 +34,8 @@ public class DataInjector {
         roleService.add(roleUser);
         roleService.add(roleAdmin);
         User userAdmin = new User();
-        userAdmin.setEmail("yaroslav@gmail.com");
-        userAdmin.setPassword("12345");
+        userAdmin.setEmail(environment.getProperty("admin.email"));
+        userAdmin.setPassword("admin.password");
         userAdmin.setRoles(Set.of(roleAdmin));
         userService.add(userAdmin);
     }
